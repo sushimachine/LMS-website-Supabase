@@ -8,6 +8,7 @@ import { useAuth } from './Context/Authcontext'
 import Signup from './Components/Signup'
 import Browse from './Pages/browse'
 import AddCourse from './Pages/AddCourse'
+import {ToastContainer} from 'react-toastify'
 
 function App() {
 
@@ -24,6 +25,17 @@ function App() {
           <AddCourse />
         </main>
         <Footer />
+        <ToastContainer
+        position="bottom-right" // You can change the position
+        autoClose={3000} // Hide after 3 seconds
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       </div>
         {isloginModalOpen && <Login/>}
         {isSignupModalOpen && <Signup/>}
