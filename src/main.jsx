@@ -10,6 +10,7 @@ import CourseDetail from './Pages/CourseDetail.jsx'
 import { Authprovider } from './Context/Authcontext.jsx'
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
+import Browse from './Pages/browse.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path : '/CourseDetail/:courseId',
         element : <CourseDetail/>
+      },
+      {
+        path : '/courses',
+        element : <Browse/>
       }
     ]
   }
