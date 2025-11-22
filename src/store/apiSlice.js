@@ -104,7 +104,7 @@ export const apiSlice = createApi({
             invalidatesTags : ['section']
         }), 
 
-        updataSection : builder.mutation({
+        updateSection : builder.mutation({
             async queryFn(upadatedSection){
                 try{
                     const {data, error} = await supabase.from('section').update(upadatedSection).eq('id', upadatedSection.id).select()
@@ -239,5 +239,5 @@ export const apiSlice = createApi({
 export const {useGetCoursesQuery, useAddCoursesMutation, useGetCourseDetailQuery,
      useGetChapterForSectionQuery, useGetSectionsForCourseQuery,
     useAddChapterMutation, useAddSectionMutation, useDeleteChapterMutation, useDeleteSectionMutation,
-    useUpdataChapterMutation, useUpdataSectionMutation, useGetTeacherCourseQuery, useDeleteCourseMutation,
+    useUpdataChapterMutation, useUpdateSectionMutation, useGetTeacherCourseQuery, useDeleteCourseMutation,
     useUpdateCourseMutation} = apiSlice

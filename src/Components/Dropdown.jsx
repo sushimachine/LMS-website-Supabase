@@ -3,9 +3,9 @@ import { MdDelete } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
-import { useDeleteSectionMutation, useUpdataSectionMutation, useAddSectionMutation } from "../store/apiSlice";
+import { useDeleteSectionMutation, useUpdateSectionMutation, useAddSectionMutation } from "../store/apiSlice";
 
-function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) {
+function Dropdown({ course_Id, id, title, subtitle, children, edit }) {
   const [open, setOpen] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -13,35 +13,14 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
   const [ deleteSection ] = useDeleteSectionMutation(id);
   const [ istitle, setIstitle ] = useState(title); 
   const [ isSubtitle, setIsSubtitle ] = useState(subtitle);
-  const [isAdd, setIsAdd] = useState(false)
-  const [updateSection] = useUpdataSectionMutation(id);
-  const [ AddSection ] = useAddSectionMutation()
-
-  const AddTheSection = async (e) => {
-    e.preventDefault();
-    try {
-        const info = {
-            title : istitle,
-            subtitle : isSubtitle,
-            course_id : main_id
-        }
-
-        await AddSection(info)
-        setIsEditing(false)
-        setIsAdd(false)
-
-        toast.success("Section updated successfully!");
-    } catch (error) {
-        toast.error("Failed to save Section. Check console.");
-    }
-  }
+  const [updateSection] = useUpdateSectionMutation(id);
   const EditTheSection = async (e) => {
       e.preventDefault(); 
       try {
           const updatedSectionData = {
               id: id, 
               title: istitle,
-              Subtitle: isSubtitle,
+              subtitle: isSubtitle,
           };
           
           await updateSection(updatedSectionData).unwrap();
@@ -57,7 +36,7 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
   const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete the section? This cannot be undone.`)) {
       try {
-        await deleteSection(section.id).unwrap(); 
+        await deleteSection(id).unwrap(); 
         toast.success("Section deleted successfully.");
       } catch (error) {
         toast.error("Failed to delete section.");
@@ -78,7 +57,7 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
           <FaRegEdit
             onClick={() => {setIsEditing(true)
               setIstitle(title); 
-              setIsduration(subtitle); 
+              setIsSubtitle(subtitle); 
             }} 
             className="hover:text-blue-500 transition"/>
 
@@ -88,7 +67,6 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
 
             <button
                 onClick={() => {setIsEditing(true);
-                    setIsAdd(true);
                 }}
                 className="bg-blue-500 text-white px-3 py-1 rounded">
                 Add Section
@@ -102,22 +80,22 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
       )}
 
       {isEditing && 
-          <form onSubmit={isAdd ? AddTheSection : EditTheSection} className="p-4 bg-gray-100 rounded-md mt-4">
+          <form onSubmit={EditTheSection} className="p-4 bg-gray-100 rounded-md mt-4">
               <h4 className="font-bold mb-2">Editing: {istitle}</h4>
               <label htmlFor="edit-title">Title:</label>
               <input 
                   type="text" 
                   id='edit-title' 
-                  value={!isAdd ? istitle : ""} 
+                  value={istitle} 
                   onChange={(e) => setIstitle(e.target.value)}
                   className='border px-2 py-1 mr-3'
               />
 
-              <label htmlFor="edit-duration">Duration:</label>
+              <label htmlFor="edit-duration">Subtitle:</label>
               <input 
                   type="text" 
                   id='edit-duration' 
-                  value={!isAdd ? isSection : ""} 
+                  value={isSubtitle} 
                   onChange={(e) => setIsSubtitle(e.target.value)} 
                   className='border px-2 py-1 mr-3'
               />
@@ -125,7 +103,7 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
               <button type="submit" className="bg-blue-500 text-white px-3 py-1 rounded">
                   <FiSave /> Save
               </button>
-              <button type="button" onClick={() => {setIsEditing(false); setIsAdd(false)}} className="bg-gray-300 ml-2 px-3 py-1 rounded">
+              <button type="button" onClick={() => {setIsEditing(false)}} className="bg-gray-300 ml-2 px-3 py-1 rounded">
                   Cancel
               </button>
           </form>
@@ -134,4 +112,4 @@ function Dropdown({ main_id : course_Id, id, title, subtitle, children, edit }) 
   );
 }
 
-export default Dropdow
+export default Dropdown 
