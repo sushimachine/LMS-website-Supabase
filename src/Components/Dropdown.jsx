@@ -9,7 +9,6 @@ function Dropdown({ course_Id, id, title, subtitle, children, edit }) {
   const [open, setOpen] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-    
   const [ deleteSection ] = useDeleteSectionMutation(id);
   const [ istitle, setIstitle ] = useState(title); 
   const [ isSubtitle, setIsSubtitle ] = useState(subtitle);
@@ -23,7 +22,6 @@ function Dropdown({ course_Id, id, title, subtitle, children, edit }) {
               subtitle: isSubtitle,
               course_id : course_Id
           };
-          
           await updateSection(updatedSectionData).unwrap();
           
           setIsEditing(false); 
@@ -46,24 +44,23 @@ function Dropdown({ course_Id, id, title, subtitle, children, edit }) {
   };
 
   return (
-    <div className="border border-gray-700 rounded-md overflow-hidden">
+    <div className="m-4 border border-gray-700 rounded-md overflow-hidden">
       <div
         onClick={() => setOpen(!open)}
-        className="flex justify-between items-center cursor-pointer px-4 py-3"
+        className="flex h-15 justify-between items-center cursor-pointer px-4 py-3"
       >
         <div className="text-black font-semibold">{title}</div>
         <div className="text-black">{subtitle}</div>
 
-        {edit && <div>
+        {edit && <div className="h-full p-1 flex gap-2">
           <FaRegEdit
             onClick={() => {setIsEditing(true)
               setIstitle(title); 
               setIsSubtitle(subtitle); 
             }} 
-            className="hover:text-blue-500 transition"/>
-
+            className="h-full w-5 hover:text-blue-500 transition"/>
             <MdDelete onClick={handleDelete} 
-            className="hover:text-red-500 transition" />
+            className="h-full w-5 hover:text-red-500 transition" />
         </div> }
 
       </div>

@@ -71,7 +71,7 @@ function ChapterList({sectionId: sectionId, edit}){
 
 
     return (
-        <div>
+        <div className='flex flex-col gap-2'>
             {Array.isArray(chapters) && chapters.map((chapter) => (
                 <div key={chapter.id} className="flex justify-between items-center p-2 border-b">
                     

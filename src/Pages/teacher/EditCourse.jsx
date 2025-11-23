@@ -60,13 +60,13 @@ function EditCourse() {
   if (isCourseLoading) return <div>Loading course data...</div>;
 
   return (
-    <div className='w-full flex flex-row'>
-      <div className='w-1/2 flex flex-col'>
-        <h1>Edit Course: {course?.title}</h1>
+    <div className='w-full flex flex-row m-4'>
+      <div className='w-1/2 flex flex-col m-2'>
+        <h1 className='font-bold text-2xl ml-4'>Edit Course: <span className='font-normal'>{course?.title}</span></h1>
       
-      <form onSubmit={handleSubmit(onSaveDetails)} className="h-screen w-full m-6 flex flex-col gap-6">
+      <form onSubmit={handleSubmit(onSaveDetails)} className="w-full m-6 flex flex-col gap-6">
         
-        <div className="h-15 flex flex-col justify-around">
+        <div className="h-15 w-3/4 flex flex-col justify-around">
           <label htmlFor="title" className="font-semibold">Title</label>
           <input 
             type="text" 
@@ -79,7 +79,7 @@ function EditCourse() {
         </div>
 
 
-        <div className="h-20 flex flex-col gap-2">
+        <div className="h-20 w-3/4 flex flex-col gap-2">
           <label htmlFor="description" className="font-semibold">Description</label>
           <input 
             type="text"
@@ -89,7 +89,7 @@ function EditCourse() {
           />
         </div>
 
-        <div className="h-15 flex flex-col gap-2">
+        <div className="h-15 w-3/4 flex flex-col gap-2">
           <label htmlFor="price">Course Price</label>
           <input 
             type="text" 
@@ -99,18 +99,18 @@ function EditCourse() {
           />
         </div>
 
-        <div className="h-9 mt-4 flex flex-row gap-2 justify-center items-center">
+        <div className="h-9 w-3/4 mt-4 flex flex-row gap-2 justify-center items-center">
           <img 
             src={course.imageUrl} 
             alt={course.title} 
-            className="h-16 w-16 object-cover rounded" 
+            className="h-16 w-full object-cover rounded" 
           />
           
           <label className="font-semibold">Update Image:</label>
           <input type="file" accept="image/*" {...register("image")} />
         </div>
 
-        <div className="h-9 mt-2 text-[#FFFFFF] flex justify-end">
+        <div className="h-9 w-3/4 mt-2 text-[#FFFFFF] flex justify-end">
           <button type="submit" className="h-full w-1/4 border bg-[#2563EB]" disabled={isUpdating}>
             {isUpdating ? "Saving..." : "Save Changes"}
           </button>
@@ -119,9 +119,7 @@ function EditCourse() {
       </form>
       </div>
 
-      <div className='w-1/2'>
-        <h1>Course Chapter</h1>
-        
+      <div className='w-1/2 flex flex-col'>
         <SectionManager courseId={courseId} />
       </div>
     </div>

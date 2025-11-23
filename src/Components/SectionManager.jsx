@@ -38,7 +38,8 @@ function SectionManager({courseId}) {
     if(isSectionLoading) return <div>loading section.....</div>
 
   return (
-    <div className='w-full'>
+    <div className='h-full w-3/4 m-6'>
+      <h1 className='text-2xl font-bold ml-2.5'>Course Chapter</h1>
       {Array.isArray(sections) && sections.map((section) => (
         <Dropdown
         key={section.id}
@@ -56,35 +57,39 @@ function SectionManager({courseId}) {
         onClick={() => {
             setIsAdd(true);
         }}
-        className="bg-blue-500 text-white px-3 py-1 rounded">
+        className="bg-blue-500 text-white px-3 py-1 ml-3 rounded">
         Add Section
     </button>
 
       {isAdd && 
-          <form onSubmit={AddTheSection} className="p-4 bg-gray-100 rounded-md mt-4">
-              <h4 className="font-bold mb-2">New Section</h4>
-              <label htmlFor="edit-title">Title:</label>
-              <input 
-                  type="text" 
-                  id='edit-title' 
-                  onChange={(e) => setIsTitle(e.target.value)}
-                  className='border px-2 py-1 mr-3'
-              />
-
-              <label htmlFor="edit-Subtitle">Subtitle:</label>
-              <input 
-                  type="text" 
-                  id='edit-duration' 
-                  onChange={(e) => setIsSubtitle(e.target.value)} 
-                  className='border px-2 py-1 mr-3'
-              />
-
-              <button type="submit" className="bg-blue-500 text-white px-3 py-1 rounded">
-                  <FiSave /> Save
-              </button>
-              <button type="button" onClick={() => {setIsAdd(false)}} className="bg-gray-300 ml-2 px-3 py-1 rounded">
-                  Cancel
-              </button>
+          <form onSubmit={AddTheSection} className="p-4 gap-3 h-65 w-full flex flex-col bg-gray-100 rounded-md mt-4">
+              <h4 className="font-bold mb-2 text-[20px]">New Section</h4>
+              <div className='flex flex-col w-9/10'>
+                <label htmlFor="edit-title">Title:</label>
+                <input 
+                    type="text" 
+                    id='edit-title' 
+                    onChange={(e) => setIsTitle(e.target.value)}
+                    className='border px-2 py-1 mr-3'
+                />
+              </div>
+              <div className='flex flex-col w-9/10'>
+                <label htmlFor="edit-Subtitle">Subtitle:</label>
+                <input 
+                    type="text" 
+                    id='edit-duration' 
+                    onChange={(e) => setIsSubtitle(e.target.value)} 
+                    className='border px-2 py-1 mr-3'
+                />
+              </div>
+              <div className='flex justify-end'>
+                <button type="submit" className="h-13 text-center bg-blue-500 text-white px-3 py-1 rounded">
+                    <FiSave /> Save
+                </button>
+                <button type="button" onClick={() => {setIsAdd(false)}} className="bg-gray-300 ml-2 px-3 py-1 rounded">
+                    Cancel
+                </button>
+              </div>
           </form>
       }
     </div>
